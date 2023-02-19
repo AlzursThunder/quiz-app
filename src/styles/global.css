@@ -1,0 +1,16 @@
+* {
+	box-sizing: border-box;
+	user-select: none;
+}
+
+body {
+	margin: 0;
+	background-color: papayawhip;
+	color: #112a46;
+	min-height: 100vh;
+	overflow: auto;
+}
+
+#root {
+	display: flex;
+}
