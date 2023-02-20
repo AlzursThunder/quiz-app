@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 				</p>
 			</div>
 			<div>
-				<Button />
+				<Button direction='options' buttonText='START' />
 			</div>
 		</div>
 	);
