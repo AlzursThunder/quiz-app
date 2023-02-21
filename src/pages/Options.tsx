@@ -1,15 +1,20 @@
 import React from 'react'
 import Select from '../components/Select';
+import Button from '../components/Button';
+
+import styles from '../styles/styles-pages/Options.module.css'
 
 const Options: React.FC = () => {
 	return (
-		<div>
+		<div className={styles.options}>
 			<h1>Options</h1>
-			<div>
+			<div className={styles["options__inputs-cont"]}>
 				{/* questions number */}
 				<div>
 					<label>
-						<p>Questions number (min - 5, max - 10)</p>
+						<p className={styles.options__text}>
+							Questions number (min - 5, max - 10)
+						</p>
 						<input
 							type="number"
 							name="questionNumber"
@@ -25,25 +30,30 @@ const Options: React.FC = () => {
 				<div>
 					<div>
 						<label>
-							<input type="radio" name="difficultyLevel" value="" />
+							<input type="radio" name="difficultyLevel" value="" /> Mixed
+							categories
 						</label>
 					</div>
 					<div>
 						<label>
-							<input type="radio" name="difficultyLevel" value="easy" />
+							<input type="radio" name="difficultyLevel" value="easy" /> Easy
 						</label>
 					</div>
 					<div>
 						<label>
-							<input type="radio" name="difficultyLevel" value="medium" />
+							<input type="radio" name="difficultyLevel" value="medium" />{" "}
+							Medium
 						</label>
 					</div>
 					<div>
 						<label>
-							<input type="radio" name="difficultyLevel" value="hard" />
+							<input type="radio" name="difficultyLevel" value="hard" /> Hard
 						</label>
 					</div>
 				</div>
+			</div>
+			<div className={styles["options__btn-container"]}>
+				<Button buttonText="START" direction="arena" canGoFurther={false} />
 			</div>
 		</div>
 	);

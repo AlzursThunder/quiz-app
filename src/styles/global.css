@@ -1,5 +1,4 @@
 * {
-	box-sizing: border-box;
 	user-select: none;
 }
 
@@ -11,6 +10,10 @@ body {
 	overflow: auto;
 }
 
-#root {
+/* #root {
 	display: flex;
+} */
+
+a {
+	text-decoration: none;
 }

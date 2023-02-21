@@ -1,11 +1,13 @@
 import React from 'react'
 import Button from '../components/Button'
 
+import styles from '../styles/styles-pages/Home.module.css'
+
 const Home: React.FC = () => {
 	return (
-		<div>
+		<div className={styles.main}>
 			<h1>Quiz</h1>
-			<div>
+			<div className={styles['main__description']}>
 				<p>
 					Welcome! <br /> Lorem ipsum, dolor sit amet consectetur adipisicing
 					elit. Aperiam earum consequuntur asperiores. Obcaecati, maiores. Nemo,
@@ -13,8 +15,9 @@ const Home: React.FC = () => {
 					amet ullam voluptates cupiditate at est.
 				</p>
 			</div>
-			<div>
+			<div className={styles['main__btn-container']}>
 				<Button direction='options' buttonText='START' />
+				<Button direction='arena' buttonText="I'm feeling lucky" />
 			</div>
 		</div>
 	);

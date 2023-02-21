@@ -1,0 +1,34 @@
+.options {
+	display: flex;
+	flex-direction: column;
+}
+
+.options__text {
+	margin: 0;
+}
+
+.options__inputs-cont {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.options__inputs-cont__num-cont,
+.options__inputs-cont__select-cont,
+.options__inputs-cont__radio-cont {
+	margin: 0 0.25em;
+}
+
+.options__btn-container {
+	display: flex;
+	justify-content: center;
+}
+
+
+@media (max-width: 110px) {
+	.options__inputs-cont {
+		flex-direction: column;
+	}
+
+	
+} 

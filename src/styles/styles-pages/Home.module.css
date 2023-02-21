@@ -1,0 +1,25 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin: 5em 0;
+}
+
+.main__description {
+	width: 70%;
+	font-size: 1.25rem;
+	margin: 2em auto;
+}
+
+.main__btn-container {
+	display: flex;
+	align-self: center;
+}
+
+@media (max-width: 650px) {
+	.main__btn-container {
+		flex-direction: column;
+	}
+
+	
+}

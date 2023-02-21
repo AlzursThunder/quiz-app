@@ -1,0 +1,23 @@
+/* this styles are also used in ErrorMsg component */
+.dark {
+	background-color: #000;
+	min-height: 100vh;
+	min-width: 100%;
+	padding: 2em;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.dark__message {
+	color: crimson;
+	font-size: 3rem;
+	font-weight: bold;
+	margin-bottom: 1em;
+}
+
+@media (max-width: 750px) {
+	.dark__message {
+		font-size: 2rem;
+	}
+}
