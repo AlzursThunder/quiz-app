@@ -1,27 +1,53 @@
 .options {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	padding-top: 1.5em;
 }
 
-.options__text {
+.options p {
 	margin: 0;
 }
 
-.options__inputs-cont {
+.options__form {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	width: 90%;
+	/* align-items: center; */
 }
 
-.options__inputs-cont__num-cont,
-.options__inputs-cont__select-cont,
-.options__inputs-cont__radio-cont {
-	margin: 0 0.25em;
+.options__form__input-select {
+	display: flex;
+	justify-content: space-evenly;
+	width: 70%;
+	/* flex-direction: row; */
+}
+
+.options__form__radios-cont {
+	display: grid;
+	grid-template-columns: 100px 100px 100px 100px;
+	column-gap: 10px;
+	width: 50%;
+}
+
+.options__form__radios-cont p {
+	text-align: center;
+	grid-column: 1 / 5;
+	margin-bottom: 0.35em;
+}
+
+.options__form__radios-cont__radio {
+	cursor: pointer;
+}
+
+.options__form__radios-cont__radio input[type='radio']:checked + img {
+	box-shadow: 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
 .options__btn-container {
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
 }
 
 
