@@ -3,6 +3,7 @@ import { Api, Changes } from "./interfaces";
 
 // gets data from API
 function getData(params: Api) {
+	params.isLoading(true)
 	fetch(params.link)
 		.then(resp => {
 			params.isError(false)
@@ -10,8 +11,8 @@ function getData(params: Api) {
 				return resp.json()
 			}
 		})
-		.then(categories => {
-			params.setState(categories[params.text])
+		.then(data => {
+			params.setState(data[params.text])
 			params.isLoading(false)
 		})
 		.catch((error) => {
@@ -25,7 +26,12 @@ const randNum = (min: number, max: number) => Math.floor(Math.random() * (max - 
 
 // use to handle changes from inputs
 function handleChanges(params: Changes) {
+	const {event, setState} = params
 
+	setState && setState(prev => ({
+		...prev,
+		[event.target.name]: event.target.value
+	}))
 }
 
-export { getData, randNum ,};
+export { getData, randNum , handleChanges, };

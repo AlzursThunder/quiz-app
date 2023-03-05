@@ -1,7 +1,9 @@
 
 interface Api {
 	link: string;
-	setState: React.Dispatch<React.SetStateAction<Category[]>>;
+	setState:
+		| React.Dispatch<React.SetStateAction<Category[]>>
+		| React.Dispatch<React.SetStateAction<Question[]>>;
 	text: string;
 	isLoading: React.Dispatch<React.SetStateAction<boolean>>;
 	isError: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,24 +15,34 @@ interface Category {
 }
 
 interface Question {
-
+	category: string
+	type: string
+	difficulty: string
+	question: string
+	correct_answer: string
+	incorrect_answers: string[]
 }
 
 interface AppCont {
-	categories?: Category[]
-	isLoading: boolean
-	isError: boolean
+	categories?: Category[];
+	options?: OptionsParams;
+	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>;
+	questions?: Question[];
+	setQuestions?: React.Dispatch<React.SetStateAction<Question[]>>;
+	isLoading: boolean;
+	isError: boolean;
+	click: (options?: OptionsParams) => void
 }
 
 interface Changes {
-	event: React.ChangeEvent<HTMLInputElement>;
-	setState: React.Dispatch<React.SetStateAction<Question[]>>;
+	event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>;
+	setState?: React.Dispatch<React.SetStateAction<OptionsParams>>;
 }
 
-interface Options {
+interface OptionsParams {
 	questionNum: string
 	categoryId: string
-	diffLevel: ''
+	diffLevel: string
 }
 
 export type {
@@ -39,6 +51,6 @@ export type {
 	Question,
 	AppCont,
 	Changes,
-	Options,
-	
+	OptionsParams,
+
 }

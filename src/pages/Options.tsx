@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import Select from '../components/Select';
 import Button from '../components/Button';
 
@@ -12,15 +12,16 @@ import mixedImg from '../assets/mixed.png'
 import easyImg from '../assets/easy.png'
 import mediumImg from '../assets/medium.png'
 import hardImg from '../assets/hard.png'
+import { getData, handleChanges } from '../utils/functions';
 
 const Options: React.FC = () => {
-	const { isError, isLoading } = useContext(AppContext)
+	const { isError, isLoading, setOptions, options, click } = useContext(AppContext)
 	
 	const [canGo, setCanGo] = useState<boolean>(false)
 
-	useEffect(() => {
+	// useEffect(() => {
 
-	}, [])
+	// }, [])
 
 	if (isError) {
 		return <ErrorMsg />
@@ -29,7 +30,6 @@ const Options: React.FC = () => {
 	if (isLoading) {
 		return <Loading />
 	}
-
 
 	return (
 		<div className={styles.options}>
@@ -42,9 +42,12 @@ const Options: React.FC = () => {
 							Questions number (min - 5, max - 10)
 							<input
 								// autoFocus
-								onChange={(e) => {}}
-								type="number"
-								name="questionNumber"
+								onChange={(event) =>
+									handleChanges({ event, setState: setOptions })
+								}
+								type="text"
+								inputMode="numeric"
+								name="questionNum"
 								className="form-control"
 							/>
 						</label>
@@ -61,9 +64,13 @@ const Options: React.FC = () => {
 						<label className={styles["options__form__radios-cont__radio"]}>
 							<input
 								type="radio"
-								name="difficultyLevel"
+								name="diffLevel"
 								value=""
 								className={`form-check-input`}
+								onChange={(event) =>
+									handleChanges({ event, setState: setOptions })
+								}
+								checked={options?.diffLevel === ""}
 							/>
 							<img src={mixedImg} alt="" />
 						</label>
@@ -72,9 +79,13 @@ const Options: React.FC = () => {
 						<label className={styles["options__form__radios-cont__radio"]}>
 							<input
 								type="radio"
-								name="difficultyLevel"
+								name="diffLevel"
 								value="easy"
 								className={`form-check-input`}
+								onChange={(event) =>
+									handleChanges({ event, setState: setOptions })
+								}
+								checked={options?.diffLevel === "easy"}
 							/>
 							<img src={easyImg} alt="" />
 						</label>
@@ -83,9 +94,13 @@ const Options: React.FC = () => {
 						<label className={styles["options__form__radios-cont__radio"]}>
 							<input
 								type="radio"
-								name="difficultyLevel"
+								name="diffLevel"
 								value="medium"
 								className={`form-check-input`}
+								onChange={(event) =>
+									handleChanges({ event, setState: setOptions })
+								}
+								checked={options?.diffLevel === "medium"}
 							/>
 							<img src={mediumImg} alt="" />
 						</label>
@@ -94,9 +109,13 @@ const Options: React.FC = () => {
 						<label className={styles["options__form__radios-cont__radio"]}>
 							<input
 								type="radio"
-								name="difficultyLevel"
+								name="diffLevel"
 								value="hard"
 								className={`form-check-input`}
+								onChange={(event) =>
+									handleChanges({ event, setState: setOptions })
+								}
+								checked={options?.diffLevel === "hard"}
 							/>
 							<img src={hardImg} alt="" />
 						</label>
@@ -104,10 +123,15 @@ const Options: React.FC = () => {
 				</div>
 			</div>
 			<div className={styles["options__btn-container"]}>
-				<Button buttonText="START" direction="arena" canGoFurther={canGo} />
+				<Button
+					click={() => click(options)}
+					buttonText="START"
+					direction="arena"
+					canGoFurther={true}
+				/>
 			</div>
 		</div>
 	);
 }
 
-export default Options
+export default memo(Options)

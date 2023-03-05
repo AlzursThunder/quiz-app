@@ -19,9 +19,8 @@
 
 .options__form__input-select {
 	display: flex;
-	justify-content: space-evenly;
-	width: 70%;
-	/* flex-direction: row; */
+	justify-content: space-between;
+	width: 80%;
 }
 
 .options__form__radios-cont {

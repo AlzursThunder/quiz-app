@@ -11,20 +11,39 @@ import Arena from './pages/Arena'
 import NoPage from './pages/NoPage'
 
 // interfaces
-import { AppCont, Category, Question } from './utils/interfaces'
-import { getData } from './utils/functions'
-
+import { AppCont, Category, OptionsParams, Question } from './utils/interfaces'
+import { getData, } from './utils/functions'
 export const AppContext = createContext<AppCont>({
 	isError: false,
-	isLoading: false
-})
+	isLoading: false,
+	click: () => console.log('')
+	
+});
 
 const App: React.FC = () => {
 	const [categories, setCategories] = useState<Category[]>([])
-	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [isError, setIsError] = useState<boolean>(false)
 
+	const [options, setOptions] = useState<OptionsParams>({
+		categoryId: '',
+		diffLevel: 'bruh',
+		questionNum: ''
+	})
+
 	const [questions, setQuestions] = useState<Question[]>([])
+
+	const click = (opt?: OptionsParams) => {
+		const link = opt && `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`
+		
+		getData({
+			isError: setIsError,
+			isLoading: setIsLoading,
+			link: link ? link : '',
+			setState: setQuestions,
+			text: "results",
+		});
+	}
 
 	useEffect(() => {
 		getData({
@@ -37,15 +56,25 @@ const App: React.FC = () => {
 		});
 	}, [])
 
+	// useEffect(() => {
+	// 	console.log(options);
+		
+	// }, [options])
+
   return (
-			<AppContext.Provider
-				value={{
-					categories,
-					isLoading,
-					isError,
-				}}
-			>
-		<BrowserRouter>
+		<AppContext.Provider
+			value={{
+				categories,
+				isLoading,
+				isError,
+				options,
+				setOptions,
+				questions,
+				setQuestions,
+				click,
+			}}
+		>
+			<BrowserRouter>
 				<Routes>
 					<Route path="/">
 						<Route index element={<Home />} />
@@ -54,8 +83,8 @@ const App: React.FC = () => {
 						<Route path="*" element={<NoPage />} />
 					</Route>
 				</Routes>
-		</BrowserRouter>
-			</AppContext.Provider>
+			</BrowserRouter>
+		</AppContext.Provider>
 	);
 }
 
