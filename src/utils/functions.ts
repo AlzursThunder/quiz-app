@@ -1,5 +1,5 @@
 import React from "react";
-import { Api, Changes } from "./interfaces";
+import { Api, Category, Changes, randOptionsParams, randQuestionsParams } from "./interfaces";
 
 // gets data from API
 function getData(params: Api) {
@@ -34,4 +34,26 @@ function handleChanges(params: Changes) {
 	}))
 }
 
-export { getData, randNum , handleChanges, };
+function getRandomOptions(params: randOptionsParams) {
+	const { categories, min, max, setOptions} = params
+	const diffLevels = ['', 'easy', 'medium', 'hard']
+	const cat = categories
+
+	const questionsNumber = `${randNum(min, max)}`
+	const diff = diffLevels[randNum(0, diffLevels.length)]
+	const categoryId = randNum(0, cat.length + 1)
+	
+	setOptions && setOptions({
+		categoryId: categoryId === cat.length ? '' : cat[categoryId].id,
+		diffLevel: diff,
+		questionNum: questionsNumber
+	})
+}
+
+function getRandQuestions(parameters: randQuestionsParams) {	
+	const { randOpt, apiCall } = parameters
+	getRandomOptions(randOpt)
+	getData(apiCall)
+}
+
+export { getData, randNum , handleChanges, getRandomOptions, getRandQuestions };

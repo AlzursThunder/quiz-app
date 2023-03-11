@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '../components/Button'
 
 import styles from '../styles/styles-pages/Home.module.css'
+import { AppContext } from '../App';
+
+import { getData, getRandQuestions } from '../utils/functions';
 
 const Home: React.FC = () => {
+	const { randQuestionsParams,  } = useContext(AppContext)
+
+
 	return (
 		<div className={styles.main}>
 			<h1>Quiz</h1>
@@ -17,7 +23,7 @@ const Home: React.FC = () => {
 			</div>
 			<div className={styles['main__btn-container']}>
 				<Button direction='options' buttonText='START' />
-				<Button direction='arena' buttonText="I'm feeling lucky" />
+				<Button direction='arena' click={() => randQuestionsParams && getRandQuestions(randQuestionsParams)} buttonText="I'm feeling lucky" />
 			</div>
 		</div>
 	);

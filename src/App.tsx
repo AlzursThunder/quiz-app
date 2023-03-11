@@ -11,13 +11,22 @@ import Arena from './pages/Arena'
 import NoPage from './pages/NoPage'
 
 // interfaces
-import { AppCont, Category, OptionsParams, Question } from './utils/interfaces'
+import { AppCont, Category, OptionsParams, Question, UserAnswer } from './utils/interfaces'
 import { getData, } from './utils/functions'
+
 export const AppContext = createContext<AppCont>({
+	categories: [],
+	options: {
+		categoryId: '',
+		diffLevel: '',
+		questionNum: ''
+	},
 	isError: false,
 	isLoading: false,
-	click: () => console.log('')
-	
+	questions: [],
+	click: () => console.log(''),
+	// getRandQuestions: {apiCall: {}, randOpt{}},
+	userAnswers: []
 });
 
 const App: React.FC = () => {
@@ -27,23 +36,36 @@ const App: React.FC = () => {
 
 	const [options, setOptions] = useState<OptionsParams>({
 		categoryId: '',
-		diffLevel: 'bruh',
-		questionNum: ''
+		diffLevel: '',
+		questionNum: '5'
 	})
 
 	const [questions, setQuestions] = useState<Question[]>([])
+	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([])
 
-	const click = (opt?: OptionsParams) => {
-		const link = opt && `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`
+	const click = (opt: OptionsParams) => {
+		const link = `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`
 		
 		getData({
 			isError: setIsError,
 			isLoading: setIsLoading,
-			link: link ? link : '',
+			link,
 			setState: setQuestions,
 			text: "results",
 		});
 	}
+
+	// const getRandQuestions = (opt: OptionsParams) =>  {
+	// 	getRandomOptions({ categories, min: 5, max: 10, setOptions });
+		
+	// 	getData({
+	// 		isError: setIsError,
+	// 		isLoading: setIsLoading,
+	// 		link: `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`,
+	// 		setState: setQuestions,
+	// 		text: "results",
+	// 	});
+	// }
 
 	useEffect(() => {
 		getData({
@@ -56,10 +78,6 @@ const App: React.FC = () => {
 		});
 	}, [])
 
-	// useEffect(() => {
-	// 	console.log(options);
-		
-	// }, [options])
 
   return (
 		<AppContext.Provider
@@ -72,6 +90,22 @@ const App: React.FC = () => {
 				questions,
 				setQuestions,
 				click,
+				randQuestionsParams: {
+						apiCall: {
+							isError: setIsError,
+							isLoading: setIsLoading,
+							link: `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.diffLevel}`,
+							setState: setQuestions,
+							text: 'results'
+						},
+						randOpt: {
+							categories,
+							min: 5,
+							max: 10,
+							setOptions
+						}
+					},
+				userAnswers,
 			}}
 		>
 			<BrowserRouter>

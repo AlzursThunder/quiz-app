@@ -1,3 +1,4 @@
+import React from "react";
 
 interface Api {
 	link: string;
@@ -10,7 +11,7 @@ interface Api {
 }
 
 interface Category {
-	id: number
+	id: string
 	name: string
 }
 
@@ -24,14 +25,17 @@ interface Question {
 }
 
 interface AppCont {
-	categories?: Category[];
-	options?: OptionsParams;
+	categories: Category[];
+	options: OptionsParams;
 	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>;
-	questions?: Question[];
+	questions: Question[];
 	setQuestions?: React.Dispatch<React.SetStateAction<Question[]>>;
 	isLoading: boolean;
 	isError: boolean;
-	click: (options?: OptionsParams) => void
+	click: (options: OptionsParams) => void;
+	randQuestionsParams?: randQuestionsParams;
+	userAnswers: UserAnswer[];
+	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>;
 }
 
 interface Changes {
@@ -45,6 +49,23 @@ interface OptionsParams {
 	diffLevel: string
 }
 
+interface UserAnswer {
+	answer: string
+	correct_answer: string
+}
+
+interface randOptionsParams {
+	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>
+	categories: Category[]
+	min: number
+	max: number
+}
+
+interface randQuestionsParams {
+	randOpt: randOptionsParams
+	apiCall: Api
+}
+
 export type {
 	Api,
 	Category,
@@ -52,5 +73,7 @@ export type {
 	AppCont,
 	Changes,
 	OptionsParams,
-
+	UserAnswer,
+	randOptionsParams,
+	randQuestionsParams
 }

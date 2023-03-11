@@ -10,21 +10,19 @@ const Select: React.FC = () => {
 		<>
 			<p className="form-label">Choose categories</p>
 			<select
-				value={options?.categoryId}
+				value={options.categoryId}
 				className="form-select"
 				aria-label="Default select example"
 				name="categoryId"
-				onChange={(event => handleChanges({event, setState: setOptions}))}
+				onChange={(event) => handleChanges({ event, setState: setOptions })}
 			>
 				{/* <option selected>Choose category</option> */}
 				<option value="">Mixed Categories</option>
-				{categories
-					? categories.map((category) => (
-							<option key={nanoid()} value={category.id}>
-								{category.name}
-							</option>
-					  ))
-					: null}
+				{categories.map((category) => (
+					<option key={nanoid()} value={category.id}>
+						{category.name}
+					</option>
+				))}
 			</select>
 		</>
 	);

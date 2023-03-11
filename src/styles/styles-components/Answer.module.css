@@ -1,0 +1,25 @@
+.answer {
+	max-width: 30%;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 0.25em 0.35em;
+	cursor: pointer;
+	text-align: center;
+	background-color: #fff;
+	margin: 0.25em;
+	word-wrap: inherit;
+}
+
+.answer--highlighted {
+	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.answer--correct {
+	box-shadow: inset 5px 5px 10px -3px rgba(0, 128, 0, 0.7);
+	background: #94D7A2;
+}
+
+.answer--incorrect {
+	box-shadow: inset 5px 5px 10px -3px rgba(255, 0, 0, 0.7);
+	background: #F8BCBC;
+}

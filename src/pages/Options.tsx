@@ -12,16 +12,11 @@ import mixedImg from '../assets/mixed.png'
 import easyImg from '../assets/easy.png'
 import mediumImg from '../assets/medium.png'
 import hardImg from '../assets/hard.png'
-import { getData, handleChanges } from '../utils/functions';
+import { handleChanges } from '../utils/functions';
+// import { OptionsParams } from '../utils/interfaces';
 
 const Options: React.FC = () => {
 	const { isError, isLoading, setOptions, options, click } = useContext(AppContext)
-	
-	const [canGo, setCanGo] = useState<boolean>(false)
-
-	// useEffect(() => {
-
-	// }, [])
 
 	if (isError) {
 		return <ErrorMsg />
@@ -49,6 +44,7 @@ const Options: React.FC = () => {
 								inputMode="numeric"
 								name="questionNum"
 								className="form-control"
+								value={options.questionNum}
 							/>
 						</label>
 					</div>
@@ -70,7 +66,7 @@ const Options: React.FC = () => {
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
 								}
-								checked={options?.diffLevel === ""}
+								checked={options.diffLevel === ""}
 							/>
 							<img src={mixedImg} alt="" />
 						</label>
@@ -85,7 +81,7 @@ const Options: React.FC = () => {
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
 								}
-								checked={options?.diffLevel === "easy"}
+								checked={options.diffLevel === "easy"}
 							/>
 							<img src={easyImg} alt="" />
 						</label>
@@ -100,7 +96,7 @@ const Options: React.FC = () => {
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
 								}
-								checked={options?.diffLevel === "medium"}
+								checked={options.diffLevel === "medium"}
 							/>
 							<img src={mediumImg} alt="" />
 						</label>
@@ -115,7 +111,7 @@ const Options: React.FC = () => {
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
 								}
-								checked={options?.diffLevel === "hard"}
+								checked={options.diffLevel === "hard"}
 							/>
 							<img src={hardImg} alt="" />
 						</label>
@@ -124,10 +120,12 @@ const Options: React.FC = () => {
 			</div>
 			<div className={styles["options__btn-container"]}>
 				<Button
-					click={() => click(options)}
+					click={() => {
+						click(options)
+					}}
 					buttonText="START"
 					direction="arena"
-					canGoFurther={true}
+					canGoFurther={parseInt(options.questionNum) >= 5 && parseInt(options.questionNum) <= 10}
 				/>
 			</div>
 		</div>
