@@ -70,6 +70,15 @@ interface RandQuestionsParams {
 	apiCall: Api;
 }
 
+interface ValidInput {
+	userData: string;
+	validQuestionsNumber: {
+		min: number;
+		max: number;
+	};
+	// isValid: boolean
+}
+
 export type {
 	Api,
 	Category,
@@ -80,4 +89,5 @@ export type {
 	UserAnswer,
 	RandOptionsParams,
 	RandQuestionsParams,
+	ValidInput
 };

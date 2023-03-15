@@ -6,6 +6,7 @@ import {
 	RandOptionsParams,
 	RandQuestionsParams,
 	UserAnswer,
+	ValidInput,
 } from "./interfaces";
 
 // gets data from API
@@ -122,6 +123,23 @@ function shuffleArray<T>(array: T[]): T[] {
 	return shuffledArray;
 }
 
+const validateInput = (parameters: ValidInput) => {
+	const { userData, validQuestionsNumber } = parameters
+	const { min, max } = validQuestionsNumber
+
+	if (outOfRange(min, max, parseInt(userData))) {
+		return true
+	}
+
+	return false 
+}
+// helper function for calidateInput func
+// checks wheter number given, by user mets conditions
+const outOfRange = (min: number, max: number, value: number) => {
+	if (value >= min && value <= max) false
+
+	return true
+}
 
 export {
 	getData,
