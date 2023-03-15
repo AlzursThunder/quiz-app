@@ -11,17 +11,17 @@ interface Api {
 }
 
 interface Category {
-	id: string
-	name: string
+	id: string;
+	name: string;
 }
 
 interface Question {
-	category: string
-	type: string
-	difficulty: string
-	question: string
-	correct_answer: string
-	incorrect_answers: string[]
+	category: string;
+	type: string;
+	difficulty: string;
+	question: string;
+	correct_answer: string;
+	incorrect_answers: string[];
 }
 
 interface AppCont {
@@ -33,37 +33,41 @@ interface AppCont {
 	isLoading: boolean;
 	isError: boolean;
 	click: (options: OptionsParams) => void;
-	randQuestionsParams?: randQuestionsParams;
+	RandQuestionsParams?: RandQuestionsParams;
 	userAnswers: UserAnswer[];
 	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>;
+	// answerContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
 }
 
 interface Changes {
-	event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>;
+	event:
+		| React.ChangeEvent<HTMLInputElement>
+		| React.ChangeEvent<HTMLSelectElement>;
 	setState?: React.Dispatch<React.SetStateAction<OptionsParams>>;
 }
 
 interface OptionsParams {
-	questionNum: string
-	categoryId: string
-	diffLevel: string
+	questionNum: string;
+	categoryId: string;
+	diffLevel: string;
 }
 
 interface UserAnswer {
-	answer: string
-	correct_answer: string
+	answer: string;
+	answerId: string 
+	// parentId: string
 }
 
-interface randOptionsParams {
-	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>
-	categories: Category[]
-	min: number
-	max: number
+interface RandOptionsParams {
+	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>;
+	categories: Category[];
+	min: number;
+	max: number;
 }
 
-interface randQuestionsParams {
-	randOpt: randOptionsParams
-	apiCall: Api
+interface RandQuestionsParams {
+	randOpt: RandOptionsParams;
+	apiCall: Api;
 }
 
 export type {
@@ -74,6 +78,6 @@ export type {
 	Changes,
 	OptionsParams,
 	UserAnswer,
-	randOptionsParams,
-	randQuestionsParams
-}
+	RandOptionsParams,
+	RandQuestionsParams,
+};

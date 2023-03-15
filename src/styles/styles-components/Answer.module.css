@@ -1,4 +1,6 @@
 .answer {
+	display: flex;
+	align-items: center;
 	max-width: 30%;
 	border: 1px solid black;
 	border-radius: 5px;
@@ -8,6 +10,7 @@
 	background-color: #fff;
 	margin: 0.25em;
 	word-wrap: inherit;
+	text-transform: capitalize;
 }
 
 .answer--highlighted {

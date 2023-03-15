@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Question } from '../utils/interfaces'
 import { decode } from "he";
 
@@ -6,6 +6,7 @@ import Answer from './Answer';
 
 import styles from '../styles/styles-components/QuestionElement.module.css'
 import { nanoid } from 'nanoid';
+import { shuffleArray } from '../utils/functions';
 
 interface QuestionElementProps {
 	question: Question
@@ -14,21 +15,20 @@ interface QuestionElementProps {
 
 const QuestionElement = (props: QuestionElementProps) => {
 	const { question, id } = props
+	const tmp = [question.correct_answer + ' |R']
+	question.incorrect_answers.map((wrong) => tmp.push(wrong));
+	// console.log(id);
 
+	const shuffledAnswers = shuffleArray(tmp)
+	
 	return (
 		<div className={styles.question} id={id}>
 			<h4 className={styles["question__text"]}>{decode(question.question)}</h4>
 			<div className={styles["question__answers-cont"]}>
-				{/* <div
-					onClick={(event) => choosenOne(event)}
-					className={styles["question__answers-cont__answer"]}
-				>
-					{decode(question.correct_answer)}
-				</div> */}
-				<Answer answer={decode(question.correct_answer)} key={nanoid()} id={nanoid()} />
-				{question.incorrect_answers.map((wrong) => (
-					<Answer answer={decode(wrong)} id={nanoid()} key={nanoid()} />
-				))}
+				{shuffledAnswers.map((value) => {
+					const id = nanoid()
+					return <Answer key={nanoid()} answer={decode(value)} id={id} />;})}
+				
 			</div>
 			<hr />
 		</div>

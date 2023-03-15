@@ -1,6 +1,17 @@
 .arena {
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
+	align-items: center;
 	margin: 2em;
+}
+
+.arena__welcome-text {
+	font-weight: bold;
+	font-size: 2.5rem;
+}
+
+@media (max-width: 800px) {
+	.arena__welcome-text {
+		font-size: 1.9rem;
+	}
 }

@@ -1,4 +1,5 @@
 .fake-btn {
+	text-transform: uppercase;
 	color: #fff !important;
 	background: #0d6efd;
 	border-radius: 5px;
