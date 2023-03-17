@@ -125,7 +125,7 @@ const Options: React.FC = () => {
 					}}
 					buttonText="START"
 					direction="arena"
-					canGoFurther={parseInt(options.questionNum) >= 5 && parseInt(options.questionNum) <= 10}
+					disabled={parseInt(options.questionNum) >= 5 && parseInt(options.questionNum) <= 10}
 				/>
 			</div>
 		</div>

@@ -7,21 +7,25 @@ import { getData } from '../utils/functions';
 interface Props {
 	direction: string;
 	buttonText: string;
-	canGoFurther?: boolean;
+	disabled?: boolean;
 	click?: MouseEventHandler<HTMLAnchorElement> | undefined;
 }
 
-const Button: React.FC<Props> = ({ direction, buttonText, canGoFurther, click }) => {
-	const where = canGoFurther ? `/${direction}` : "/";
+const Button: React.FC<Props> = ({ direction, buttonText, disabled, click }) => {
+	const where = `/${direction}`
 	return (
-		<Link onClick={click} className={styles["fake-btn"]} to={where}>
-			{buttonText}
+		<Link onClick={click} to={where}>
+			<button style={{
+				border: 'none'
+			}} className={styles['fake-btn']} disabled={disabled}>
+				{buttonText}
+			</button>
 		</Link>
 	);
 };
 
 Button.defaultProps = {
-	canGoFurther: true
+	disabled: false
 }
 
 export default Button
