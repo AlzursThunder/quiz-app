@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Api {
-	link: string;
+	options?: OptionsParams;
 	setState:
 		| React.Dispatch<React.SetStateAction<Category[]>>
 		| React.Dispatch<React.SetStateAction<Question[]>>;
@@ -59,7 +59,6 @@ interface UserAnswer {
 }
 
 interface RandOptionsParams {
-	setOptions?: React.Dispatch<React.SetStateAction<OptionsParams>>;
 	categories: Category[];
 	min: number;
 	max: number;

@@ -11,8 +11,12 @@ import {
 
 // gets data from API
 function getData(params: Api) {
+	const { options } = params
+	const link = options
+		? `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.diffLevel}`
+		: "https://opentdb.com/api_category.php";
 	params.isLoading(true);
-	fetch(params.link)
+	fetch(link)
 		.then((resp) => {
 			params.isError(false);
 			if (resp.status >= 200 && resp.status <= 299) {
@@ -83,7 +87,7 @@ function highlightChoosenAnswer(
 
 // sets options state to random values
 function getRandomOptions(params: RandOptionsParams) {
-	const { categories, min, max, setOptions } = params;
+	const { categories, min, max } = params;
 	const diffLevels = ["", "easy", "medium", "hard"];
 	const cat = categories;
 
@@ -91,18 +95,19 @@ function getRandomOptions(params: RandOptionsParams) {
 	const diff = diffLevels[randNum(0, diffLevels.length - 1)];
 	const categoryId = randNum(0, cat.length);
 
-	setOptions &&
-		setOptions({
-			categoryId: categoryId === cat.length ? "" : cat[categoryId].id,
-			diffLevel: diff,
-			questionNum: questionsNumber,
-		});
+	return {
+		categoryId: categoryId === cat.length ? "" : cat[categoryId].id,
+		diffLevel: diff,
+		questionNum: questionsNumber,
+	};
 }
 
 // generates questions based on data provided by function getRandomOptions
 function getRandQuestions(parameters: RandQuestionsParams) {
 	const { randOpt, apiCall } = parameters;
-	getRandomOptions(randOpt);
+	const randOptions = getRandomOptions(randOpt)
+
+	apiCall.options = randOptions
 	getData(apiCall);
 }
 

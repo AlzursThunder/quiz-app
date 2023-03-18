@@ -38,8 +38,14 @@ const App: React.FC = () => {
 	const [options, setOptions] = useState<OptionsParams>({
 		categoryId: "",
 		diffLevel: "",
-		questionNum: "5",
+		questionNum: "",
 	});
+
+	const [randOpt, setRandOpt] = useState<OptionsParams>({
+		categoryId: '',
+		diffLevel: '',
+		questionNum: ''
+	})
 
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
@@ -54,7 +60,7 @@ const App: React.FC = () => {
 		getData({
 			isError: setIsError,
 			isLoading: setIsLoading,
-			link,
+			options: opt,
 			setState: setQuestions,
 			text: "results",
 		});
@@ -62,8 +68,6 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		getData({
-			link: "https://opentdb.com/api_category.php",
-			// link: 'https://httpstat.us/404',
 			setState: setCategories,
 			text: "trivia_categories",
 			isLoading: setIsLoading,
@@ -86,7 +90,11 @@ const App: React.FC = () => {
 					apiCall: {
 						isError: setIsError,
 						isLoading: setIsLoading,
-						link: `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.diffLevel}`,
+						options: {
+							categoryId: '',
+							diffLevel: '',
+							questionNum: ''
+						},
 						setState: setQuestions,
 						text: "results",
 					},
@@ -94,10 +102,8 @@ const App: React.FC = () => {
 						categories,
 						min: 5,
 						max: 10,
-						setOptions,
 					},
 				},
-				// answerContainer,
 				userAnswers,
 				setUserAnswers
 			}}
