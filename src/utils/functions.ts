@@ -128,22 +128,15 @@ function shuffleArray<T>(array: T[]): T[] {
 	return shuffledArray;
 }
 
-const validateInput = (parameters: ValidInput) => {
+const outOfRange = (parameters: ValidInput) => {
 	const { userData, validQuestionsNumber } = parameters
 	const { min, max } = validQuestionsNumber
 
-	if (outOfRange(min, max, parseInt(userData))) {
-		return true
+	if (parseInt(userData) >= min && parseInt(userData) <= max) {
+		return false
 	}
 
-	return false 
-}
-// helper function for validateInput func
-// checks wheter number given, by user mets conditions
-const outOfRange = (min: number, max: number, value: number) => {
-	if (value >= min && value <= max) false
-
-	return true
+	return true 
 }
 
 export {
@@ -153,5 +146,5 @@ export {
 	highlightChoosenAnswer,
 	getRandQuestions,
 	shuffleArray,
-	validateInput
+	outOfRange
 };

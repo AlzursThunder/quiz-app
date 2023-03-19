@@ -12,11 +12,20 @@ import mixedImg from '../assets/mixed.png'
 import easyImg from '../assets/easy.png'
 import mediumImg from '../assets/medium.png'
 import hardImg from '../assets/hard.png'
-import { handleChanges } from '../utils/functions';
+import { handleChanges, outOfRange } from '../utils/functions';
+import Warning from '../components/Warning';
 // import { OptionsParams } from '../utils/interfaces';
 
 const Options: React.FC = () => {
 	const { isError, isLoading, setOptions, options, click } = useContext(AppContext)
+	const [isInvalid, setIsInvalid] = useState(() => false)
+	
+	useEffect(() => {
+		setIsInvalid(outOfRange({
+			userData: options.questionNum,
+			validQuestionsNumber: { min: 5, max: 10 },
+		}))
+	}, [options])
 
 	if (isError) {
 		return <ErrorMsg />
@@ -25,7 +34,6 @@ const Options: React.FC = () => {
 	if (isLoading) {
 		return <Loading />
 	}
-
 	return (
 		<div className={styles.options}>
 			<h1>Options</h1>
@@ -36,7 +44,9 @@ const Options: React.FC = () => {
 						<label className="form-label">
 							Questions number (min - 5, max - 10)
 							<input
-								// autoFocus
+								style={{
+									border: isInvalid ? '2px solid red' : undefined 
+								}}
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
 								}
@@ -120,12 +130,12 @@ const Options: React.FC = () => {
 			</div>
 			<div className={styles["options__btn-container"]}>
 				<Button
+					disabled={isInvalid}
 					click={() => {
-						click(options)
+						click(options);
 					}}
 					buttonText="START"
 					direction="arena"
-					disabled={parseInt(options.questionNum) >= 5 && parseInt(options.questionNum) <= 10}
 				/>
 			</div>
 		</div>
