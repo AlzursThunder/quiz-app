@@ -7,10 +7,12 @@ import { nanoid } from 'nanoid';
 
 import styles from '../styles/styles-pages/Arena.module.css'
 import btnStyles from '../styles/styles-components/Button.module.css'
+import { UserAnswer } from '../utils/interfaces';
 const Arena: React.FC = () => {
 	const { isError, isLoading, questions } = useContext(AppContext)
 	let [parentId, setParentId] = useState(-1)
-
+	
+	const [isFinished, setIsFinished] = useState(false)
 
 	if (isError) {
 		return <ErrorMsg />

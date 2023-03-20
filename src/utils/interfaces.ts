@@ -36,7 +36,6 @@ interface AppCont {
 	RandQuestionsParams?: RandQuestionsParams;
 	userAnswers: UserAnswer[];
 	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>;
-	// answerContainer?: React.MutableRefObject<HTMLDivElement | undefined>;
 }
 
 interface Changes {
@@ -54,7 +53,8 @@ interface OptionsParams {
 
 interface UserAnswer {
 	answer: string;
-	answerId: string 
+	answerId: string
+	isCorrect: boolean
 	// parentId: string
 }
 
@@ -78,6 +78,12 @@ interface ValidInput {
 	// isValid: boolean
 }
 
+interface Points {
+	answered: number,
+	correct: number,
+	overall: number
+}
+
 export type {
 	Api,
 	Category,
@@ -88,5 +94,6 @@ export type {
 	UserAnswer,
 	RandOptionsParams,
 	RandQuestionsParams,
-	ValidInput
+	ValidInput,
+	Points
 };

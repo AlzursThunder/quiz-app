@@ -12,11 +12,12 @@ interface AnswerProps {
 
 const Answer = (props: AnswerProps) => {
 	const { answer, id } = props;
-	const { setUserAnswers } = useContext(AppContext)
+	const { setUserAnswers, questions } = useContext(AppContext)
+
 	return (
 		<div
 			id={id}
-			onClick={(e) => highlightChoosenAnswer(e, id, styles, setUserAnswers)}
+			onClick={(e) => highlightChoosenAnswer(e, id, styles, questions, setUserAnswers)}
 			className={styles.answer}
 		>
 			{answer}

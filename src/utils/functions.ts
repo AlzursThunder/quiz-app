@@ -3,6 +3,7 @@ import {
 	Api,
 	Category,
 	Changes,
+	Question,
 	RandOptionsParams,
 	RandQuestionsParams,
 	UserAnswer,
@@ -54,26 +55,22 @@ function highlightChoosenAnswer(
 	event: React.MouseEvent<HTMLDivElement, MouseEvent>,
 	id: string,
 	styles: CSSModuleClasses,
-	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>
+	questions: Question[],
+	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>,
 ) {
 	const target = event.target as HTMLDivElement;
 	const parent = target.parentElement;
 	const ancestor = parent?.parentElement
-	let tmpAnswers: UserAnswer[] = []
+	// let tmpAnswers: UserAnswer[] = []
 	if (ancestor) {
 		for (let child of parent.children) {
 			if (child.id === id) {
 				child.classList.add(styles["answer--highlighted"]);
-				tmpAnswers[parseInt(ancestor.id)] = {
-					answer: child.textContent ? child.textContent : '',
-					answerId: child.id
-				};
-				// console.log(tmpAnswers);
-				
 				setUserAnswers && setUserAnswers(prev => {
 					prev[parseInt(ancestor.id)] = {
 						answer: child.textContent ? child.textContent : "",
 						answerId: child.id,
+						isCorrect: child.textContent === questions[parseInt(ancestor.id)].correct_answer
 					};
 					return prev
 				})

@@ -11,6 +11,7 @@ import {
 	AppCont,
 	Category,
 	OptionsParams,
+	Points,
 	Question,
 	UserAnswer,
 } from "./utils/interfaces";
@@ -49,10 +50,12 @@ const App: React.FC = () => {
 
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
-	const [finished, setFinished] = useState<boolean | string>('1')
 
-	// const answerContainer = useRef<HTMLDivElement | undefined>();
-
+	const [points, setPoints] = useState<Points>({
+		answered: 0,
+		correct: 0,
+		overall: 0
+	})
 
 	const click = (opt: OptionsParams) => {
 		const link = `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`;
