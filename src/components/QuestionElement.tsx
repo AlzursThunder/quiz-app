@@ -15,7 +15,7 @@ interface QuestionElementProps {
 
 const QuestionElement = (props: QuestionElementProps) => {
 	const { question, id } = props
-	const tmp = [question.correct_answer + ' |R']
+	const tmp = [question.correct_answer]
 	question.incorrect_answers.map((wrong) => tmp.push(wrong));
 	// console.log(id);
 

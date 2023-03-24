@@ -14,6 +14,25 @@ const Arena: React.FC = () => {
 	
 	const [isFinished, setIsFinished] = useState(false)
 
+	useEffect(() => {
+		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+			// Cancel the event
+			event.preventDefault();
+			// Chrome requires returnValue to be set
+			event.returnValue = '';
+			// Show the warning message
+			const message = 'Are you sure you want to leave?';
+			event.returnValue = message;
+			return message;
+		};
+		// Add the event listener
+		window.addEventListener('beforeunload', handleBeforeUnload);
+		// Remove the event listener on unmount
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		};
+	}, []);
+	
 	if (isError) {
 		return <ErrorMsg />
 	}

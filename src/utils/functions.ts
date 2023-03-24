@@ -9,6 +9,7 @@ import {
 	UserAnswer,
 	ValidInput,
 } from "./interfaces";
+import { decode } from "he";
 
 // gets data from API
 function getData(params: Api) {
@@ -70,7 +71,7 @@ function highlightChoosenAnswer(
 					prev[parseInt(ancestor.id)] = {
 						answer: child.textContent ? child.textContent : "",
 						answerId: child.id,
-						isCorrect: child.textContent === questions[parseInt(ancestor.id)].correct_answer
+						isCorrect: child.textContent === decode(questions[parseInt(ancestor.id)].correct_answer)
 					};
 					return prev
 				})

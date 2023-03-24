@@ -42,11 +42,11 @@ const App: React.FC = () => {
 		questionNum: "",
 	});
 
-	const [randOpt, setRandOpt] = useState<OptionsParams>({
-		categoryId: '',
-		diffLevel: '',
-		questionNum: ''
-	})
+	// const [randOpt, setRandOpt] = useState<OptionsParams>({
+	// 	categoryId: '',
+	// 	diffLevel: '',
+	// 	questionNum: ''
+	// })
 
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
