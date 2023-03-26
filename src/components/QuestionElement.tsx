@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Question, UserAnswer } from '../utils/interfaces'
+import React, { memo, useEffect, useMemo, useState } from 'react'
+import { Points, Question, UserAnswer } from '../utils/interfaces'
 import { decode } from "he";
 
 import Answer from './Answer';
@@ -12,23 +12,24 @@ interface QuestionElementProps {
 	question: Question
 	id: string
 	setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
+	setPoints: React.Dispatch<React.SetStateAction<Points>>
 }
 
-const QuestionElement = (props: QuestionElementProps) => {
-	const { question, id, setUserAnswers } = props
-	const tmp = [question.correct_answer]
-	question.incorrect_answers.map((wrong) => tmp.push(wrong));
+const QuestionElement: React.FC<QuestionElementProps> = (props: QuestionElementProps) => {
+	const { question, id, setUserAnswers, setPoints } = props
 	// console.log(id);
-
-	const shuffledAnswers = shuffleArray(tmp)
+	
+	// const tmp = [question.correct_answer]
+	// question.incorrect_answers.map((wrong) => tmp.push(wrong));
+	// let shuffledAnswers = useMemo(() => shuffleArray(tmp), [question])
 	
 	return (
 		<div className={styles.question} id={id}>
 			<h4 className={styles["question__text"]}>{decode(question.question)}</h4>
 			<div className={styles["question__answers-cont"]}>
-				{shuffledAnswers.map((value) => {
+				{question.all_answers.map((value) => {
 					const id = nanoid()
-					return <Answer setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
+					return <Answer setPoints={setPoints} setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
 				
 			</div>
 			<hr />

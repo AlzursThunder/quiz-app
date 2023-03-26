@@ -50,38 +50,38 @@ function handleChanges(params: Changes) {
 		}));
 }
 
-// adds style to answer choosen by player
-// and removes this style from any other answer
-function highlightChoosenAnswer(
-	event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-	id: string,
-	styles: CSSModuleClasses,
-	questions: Question[],
-	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>,
-) {
-	const target = event.target as HTMLDivElement;
-	const parent = target.parentElement;
-	const ancestor = parent?.parentElement
-	// let tmpAnswers: UserAnswer[] = []
-	if (ancestor) {
-		for (let child of parent.children) {
-			if (child.id === id) {
-				child.classList.add(styles["answer--highlighted"]);
-				setUserAnswers && setUserAnswers(prev => {
-					prev[parseInt(ancestor.id)] = {
-						answer: child.textContent ? child.textContent : "",
-						answerId: child.id,
-						isCorrect: child.textContent === decode(questions[parseInt(ancestor.id)].correct_answer)
-					};
-					return prev
-				})
-			} else {
-				child.classList.remove(styles['answer--highlighted'])
-			}
-		}		
-	}
-	// setUserAnswers && setUserAnswers(tmpAnswers)
-}
+// // adds style to answer choosen by player
+// // and removes this style from any other answer
+// function highlightChoosenAnswer(
+// 	event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+// 	id: string,
+// 	styles: CSSModuleClasses,
+// 	questions: Question[],
+// 	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>,
+// ) {
+// 	const target = event.target as HTMLDivElement;
+// 	const parent = target.parentElement;
+// 	const ancestor = parent?.parentElement
+// 	// let tmpAnswers: UserAnswer[] = []
+// 	if (ancestor) {
+// 		for (let child of parent.children) {
+// 			if (child.id === id) {
+// 				child.classList.add(styles["answer--highlighted"]);
+// 				setUserAnswers && setUserAnswers(prev => {
+// 					prev[parseInt(ancestor.id)] = {
+// 						answer: child.textContent ? child.textContent : "",
+// 						answerId: child.id,
+// 						isCorrect: child.textContent === decode(questions[parseInt(ancestor.id)].correct_answer)
+// 					};
+// 					return prev
+// 				})
+// 			} else {
+// 				child.classList.remove(styles['answer--highlighted'])
+// 			}
+// 		}		
+// 	}
+// 	// setUserAnswers && setUserAnswers(tmpAnswers)
+// }
 
 // sets options state to random values
 function getRandomOptions(params: RandOptionsParams) {
@@ -141,7 +141,7 @@ export {
 	getData,
 	randNum,
 	handleChanges,
-	highlightChoosenAnswer,
+	// highlightChoosenAnswer,
 	getRandQuestions,
 	shuffleArray,
 	outOfRange
