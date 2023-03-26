@@ -7,11 +7,17 @@ import { nanoid } from 'nanoid';
 
 import styles from '../styles/styles-pages/Arena.module.css'
 import btnStyles from '../styles/styles-components/Button.module.css'
-import { UserAnswer } from '../utils/interfaces';
+import { Points, UserAnswer } from '../utils/interfaces';
 const Arena: React.FC = () => {
 	const { isError, isLoading, questions } = useContext(AppContext)
 	let [parentId, setParentId] = useState(-1)
-	
+	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
+
+	const [points, setPoints] = useState<Points>({
+		answered: 0,
+		correct: 0,
+		overall: 0
+	})
 	const [isFinished, setIsFinished] = useState(false)
 
 	useEffect(() => {
@@ -53,6 +59,7 @@ const Arena: React.FC = () => {
 				return (
 					<QuestionElement
 						key={nanoid()}
+						setUserAnswers={setUserAnswers}
 						question={question}
 						id={id + ''}
 					/>

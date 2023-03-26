@@ -11,11 +11,9 @@ import {
 	AppCont,
 	Category,
 	OptionsParams,
-	Points,
 	Question,
-	UserAnswer,
 } from "./utils/interfaces";
-import { getData, shuffleArray } from "./utils/functions";
+import { getData, } from "./utils/functions";
 
 export const AppContext = createContext<AppCont>({
 	categories: [],
@@ -28,7 +26,6 @@ export const AppContext = createContext<AppCont>({
 	isLoading: false,
 	questions: [],
 	click: () => console.log(""),
-	userAnswers: [],
 });
 
 const App: React.FC = () => {
@@ -49,13 +46,6 @@ const App: React.FC = () => {
 	// })
 
 	const [questions, setQuestions] = useState<Question[]>([]);
-	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
-
-	const [points, setPoints] = useState<Points>({
-		answered: 0,
-		correct: 0,
-		overall: 0
-	})
 
 	const click = (opt: OptionsParams) => {
 		const link = `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`;
@@ -107,8 +97,6 @@ const App: React.FC = () => {
 						max: 10,
 					},
 				},
-				userAnswers,
-				setUserAnswers
 			}}
 		>
 			<BrowserRouter>

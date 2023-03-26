@@ -34,8 +34,6 @@ interface AppCont {
 	isError: boolean;
 	click: (options: OptionsParams) => void;
 	RandQuestionsParams?: RandQuestionsParams;
-	userAnswers: UserAnswer[];
-	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>;
 }
 
 interface Changes {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Question } from '../utils/interfaces'
+import { Question, UserAnswer } from '../utils/interfaces'
 import { decode } from "he";
 
 import Answer from './Answer';
@@ -11,10 +11,11 @@ import { shuffleArray } from '../utils/functions';
 interface QuestionElementProps {
 	question: Question
 	id: string
+	setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
 }
 
 const QuestionElement = (props: QuestionElementProps) => {
-	const { question, id } = props
+	const { question, id, setUserAnswers } = props
 	const tmp = [question.correct_answer]
 	question.incorrect_answers.map((wrong) => tmp.push(wrong));
 	// console.log(id);
@@ -27,7 +28,7 @@ const QuestionElement = (props: QuestionElementProps) => {
 			<div className={styles["question__answers-cont"]}>
 				{shuffledAnswers.map((value) => {
 					const id = nanoid()
-					return <Answer key={nanoid()} answer={decode(value)} id={id} />;})}
+					return <Answer setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
 				
 			</div>
 			<hr />
