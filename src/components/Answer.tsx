@@ -21,6 +21,7 @@ const Answer = (props: AnswerProps) => {
 	// and removes this style from any other answer
 	function highlightChoosenAnswer(
 		event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+		setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
 	) {
 		const target = event.target as HTMLDivElement;
 		const parent = target.parentElement;
@@ -57,7 +58,7 @@ const Answer = (props: AnswerProps) => {
 	return (
 		<div
 			id={id}
-			onClick={(e) => highlightChoosenAnswer(e)}
+			onClick={(e) => highlightChoosenAnswer(e, setUserAnswers)}
 			className={styles.answer}
 		>
 			{answer}

@@ -19,15 +19,15 @@ const QuestionElement: React.FC<QuestionElementProps> = (props: QuestionElementP
 	const { question, id, setUserAnswers, setPoints } = props
 	// console.log(id);
 	
-	// const tmp = [question.correct_answer]
-	// question.incorrect_answers.map((wrong) => tmp.push(wrong));
-	// let shuffledAnswers = useMemo(() => shuffleArray(tmp), [question])
+	const tmp = [question.correct_answer]
+	question.incorrect_answers.map((wrong) => tmp.push(wrong));
+	let shuffledAnswers = shuffleArray(tmp)
 	
 	return (
 		<div className={styles.question} id={id}>
 			<h4 className={styles["question__text"]}>{decode(question.question)}</h4>
 			<div className={styles["question__answers-cont"]}>
-				{question.all_answers.map((value) => {
+				{shuffledAnswers.map((value) => {
 					const id = nanoid()
 					return <Answer setPoints={setPoints} setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
 				

@@ -41,22 +41,6 @@ const Arena: React.FC = () => {
 	}, []);
 	
 	useEffect(() => {
-		setPoints(prev => ({ ...prev, overall: questions.length }))
-
-		setQuestions && setQuestions(prev => {
-			prev.forEach(question => {
-				let tmp = [question.correct_answer]
-				question.incorrect_answers.forEach(wrong => tmp.push(wrong))
-				tmp = shuffleArray(tmp)
-				question.all_answers = tmp
-				return question
-			})
-			console.log(prev);
-			return prev
-		})
-	}, [questions])
-	
-	useEffect(() => {
 		// console.log(userAnswers);
 		setPoints(prev => {
 			return {
@@ -94,7 +78,7 @@ const Arena: React.FC = () => {
 					/>
 				);
 			})}
-			{isFinished && <h2>{`${points.correct}/${points.overall} points`}</h2>}
+			{isFinished && <h2>{`${userAnswers.filter(answer => answer.isCorrect).length}/${points.overall} points`}</h2>}
 			<button className={btnStyles['fake-btn']} style={{border: 'none'}} onClick={() => setIsFinished(true)}>check answers</button>
 		</div>
 	);
