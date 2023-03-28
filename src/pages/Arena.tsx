@@ -10,16 +10,16 @@ import btnStyles from '../styles/styles-components/Button.module.css'
 import { Points, UserAnswer } from '../utils/interfaces';
 import { shuffleArray } from '../utils/functions';
 const Arena: React.FC = () => {
-	const { isError, isLoading, questions, setQuestions } = useContext(AppContext)
-	let [parentId, setParentId] = useState(-1)
+	const { isError, isLoading, questions } = useContext(AppContext)
+	const [questionsHTML, setQuestionsHTML] = useState<JSX.Element[]>()
 	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
 	const [points, setPoints] = useState<Points>({
 		answered: 0,
 		correct: 0,
-		overall: questions.length
+		overall: 0
 	})
-	const [isFinished, setIsFinished] = useState(false)
+	const [isFinished, setIsFinished] = useState<boolean | string>('bruh')
 
 	useEffect(() => {
 		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -39,17 +39,27 @@ const Arena: React.FC = () => {
 			window.removeEventListener('beforeunload', handleBeforeUnload);
 		};
 	}, []);
-	
+
 	useEffect(() => {
-		// console.log(userAnswers);
-		setPoints(prev => {
-			return {
-				...prev,
-				answered: userAnswers.filter(() => true).length,
-				correct: userAnswers.filter(answer => answer.isCorrect).length
-			}
+		setQuestionsHTML(() => {
+			let parentId = 0
+			return questions.map(question => {
+				const id = parentId++
+				return <QuestionElement
+					key={nanoid()}
+					setUserAnswers={setUserAnswers}
+					setPoints={setPoints}
+					question={question}
+					id={id + ''}
+				/>
+			})
 		})
-	}, [userAnswers])
+
+		setPoints(prev => ({
+			...prev,
+			overall: questions.length
+		}))
+	}, [questions])
 	
 	if (isError) {
 		return <ErrorMsg />
@@ -66,7 +76,7 @@ const Arena: React.FC = () => {
 	return (
 		<div className={styles.arena}>
 			<h1 className={styles["arena__welcome-text"]}>Good luck</h1>
-			{questions.map((question) => {
+			{/* {questions.map((question) => {
 				const id = ++parentId
 				return (
 					<QuestionElement
@@ -77,8 +87,11 @@ const Arena: React.FC = () => {
 						id={id + ''}
 					/>
 				);
-			})}
-			{isFinished && <h2>{`${userAnswers.filter(answer => answer.isCorrect).length}/${points.overall} points`}</h2>}
+			})} */}
+			{
+				questionsHTML
+			}
+			{isFinished && <h2>{`${points.correct}/${points.overall} points`}</h2>}
 			<button className={btnStyles['fake-btn']} style={{border: 'none'}} onClick={() => setIsFinished(true)}>check answers</button>
 		</div>
 	);
