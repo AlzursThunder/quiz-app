@@ -13,7 +13,7 @@ interface AnswerProps {
 	setPoints: React.Dispatch<React.SetStateAction<Points>>
 }
 
-const Answer = (props: AnswerProps) => {
+const Answer: React.FC<AnswerProps> = (props: AnswerProps) => {
 	const { answer, id, setUserAnswers, setPoints } = props;
 	const { questions } = useContext(AppContext)
 
@@ -36,7 +36,7 @@ const Answer = (props: AnswerProps) => {
 						answers = prev
 						answers[parseInt(ancestor.id)] = {
 							answer: child.textContent ? child.textContent : '',
-							answerId: child.id,
+							answerId: target.id,
 							isCorrect: child.textContent === decode(questions[parseInt(ancestorId)].correct_answer)
 						}						
 						return answers

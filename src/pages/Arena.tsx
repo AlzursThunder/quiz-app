@@ -7,8 +7,12 @@ import { nanoid } from 'nanoid';
 
 import styles from '../styles/styles-pages/Arena.module.css'
 import btnStyles from '../styles/styles-components/Button.module.css'
+import questElStyles from '../styles/styles-components/QuestionElement.module.css'
+import answerStyles from '../styles/styles-components/Answer.module.css'
+
 import { Points, UserAnswer } from '../utils/interfaces';
-import { shuffleArray } from '../utils/functions';
+import { decode } from 'he';
+
 const Arena: React.FC = () => {
 	const { isError, isLoading, questions } = useContext(AppContext)
 	const [questionsHTML, setQuestionsHTML] = useState<JSX.Element[]>()
@@ -61,6 +65,28 @@ const Arena: React.FC = () => {
 		}))
 	}, [questions])
 	
+	function stylingTime() {
+		const questionBlocks = document.getElementsByClassName(questElStyles['question__answers-cont'])
+		// console.log(questionBlocks);
+		for (let question of questionBlocks) {
+			if (question.parentElement) {
+				const ancestorId = parseInt(question.parentElement?.id)
+				for (let answer of question.children) {
+					console.log(answer);
+					if (answer.textContent === decode(questions[ancestorId].correct_answer)) {
+						answer.classList.add(answerStyles['answer--correct'])
+					}
+					if (answer.id === userAnswers[ancestorId].answerId) {
+						const badAnswer = userAnswers[ancestorId].isCorrect ? 'bruh' : answerStyles['answer--incorrect']
+						answer.classList.add(badAnswer)
+					}
+					
+				}
+			}
+			
+		}
+	}
+
 	if (isError) {
 		return <ErrorMsg />
 	}
@@ -76,23 +102,14 @@ const Arena: React.FC = () => {
 	return (
 		<div className={styles.arena}>
 			<h1 className={styles["arena__welcome-text"]}>Good luck</h1>
-			{/* {questions.map((question) => {
-				const id = ++parentId
-				return (
-					<QuestionElement
-						key={nanoid()}
-						setUserAnswers={setUserAnswers}
-						setPoints={setPoints}
-						question={question}
-						id={id + ''}
-					/>
-				);
-			})} */}
 			{
 				questionsHTML
 			}
 			{isFinished && <h2>{`${points.correct}/${points.overall} points`}</h2>}
-			<button className={btnStyles['fake-btn']} style={{border: 'none'}} onClick={() => setIsFinished(true)}>check answers</button>
+			<button className={btnStyles['fake-btn']} style={{border: 'none'}} onClick={() => {
+				setIsFinished(true)
+				stylingTime()
+			}}>check answers</button>
 		</div>
 	);
 };
