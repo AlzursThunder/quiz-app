@@ -14,6 +14,7 @@ import {
 	Question,
 } from "./utils/interfaces";
 import { getData, } from "./utils/functions";
+import Menu from "./components/Menu";
 
 export const AppContext = createContext<AppCont>({
 	categories: [],
@@ -101,7 +102,7 @@ const App: React.FC = () => {
 		>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/">
+					<Route path="/" element={<Menu />}>
 						<Route index element={<Home />} />
 						<Route path="/options" element={<Options />} />
 						<Route path="/arena" element={<Arena />} />
