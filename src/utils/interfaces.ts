@@ -82,6 +82,9 @@ interface Points {
 	overall: number
 }
 
+interface ArenaContext {
+	isFinished: boolean | string
+}
 export type {
 	Api,
 	Category,
@@ -93,5 +96,6 @@ export type {
 	RandOptionsParams,
 	RandQuestionsParams,
 	ValidInput,
-	Points
+	Points,
+	ArenaContext
 };

@@ -1,32 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import styles from "../styles/styles-components/Answer.module.css";
 // import { highlightChoosenAnswer } from "../utils/functions";
 import { AppContext } from "../App";
 import { Points, UserAnswer } from "../utils/interfaces";
 import { decode } from "he";
+import { ArenaProps } from "../pages/Arena";
 
 interface AnswerProps {
 	answer: string;
 	id: string;
 	setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
 	setPoints: React.Dispatch<React.SetStateAction<Points>>
+	points: boolean | string
 }
 
 const Answer: React.FC<AnswerProps> = (props: AnswerProps) => {
-	const { answer, id, setUserAnswers, setPoints } = props;
+	const { answer, id, setUserAnswers, setPoints, points } = props;
 	const { questions } = useContext(AppContext)
+	const { isFinished } = useContext(ArenaProps)
 
-	// adds style to answer choosen by player
-	// and removes this style from any other answer
 	function highlightChoosenAnswer(
-		event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-		setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>,
 	) {
 		const target = event.target as HTMLDivElement;
 		const parent = target.parentElement;
 		const ancestor = parent?.parentElement
 		let answers: UserAnswer[] = []
+
 		if (ancestor) {
 			let ancestorId = ancestor.id
 			for (let child of parent.children) {
@@ -38,7 +40,7 @@ const Answer: React.FC<AnswerProps> = (props: AnswerProps) => {
 							answer: child.textContent ? child.textContent : '',
 							answerId: target.id,
 							isCorrect: child.textContent === decode(questions[parseInt(ancestorId)].correct_answer)
-						}						
+						}
 						return answers
 					})
 					setPoints(prev => {
@@ -52,17 +54,22 @@ const Answer: React.FC<AnswerProps> = (props: AnswerProps) => {
 					child.classList.remove(styles['answer--highlighted'])
 				}
 			}
+
 		}
+
 	}
 
 	return (
-		<div
+		<button
 			id={id}
-			onClick={(e) => highlightChoosenAnswer(e, setUserAnswers)}
+			disabled={isFinished === true}
+			onClick={(e) => {
+				highlightChoosenAnswer(e, setUserAnswers)
+			}}
 			className={styles.answer}
 		>
 			{answer}
-		</div>
+		</button>
 	);
 };
 

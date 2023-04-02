@@ -12,7 +12,9 @@
 	word-wrap: inherit;
 	text-transform: capitalize;
 }
-
+.answer:disabled {
+	color: #112a46;
+}
 .answer--highlighted {
 	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }

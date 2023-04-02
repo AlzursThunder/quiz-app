@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 					click={() =>
 						RandQuestionsParams && getRandQuestions(RandQuestionsParams)
 					}
-					buttonText="I'm feeling lucky"
+					buttonText="quick game"
 				/>
 			</div>
 		</div>

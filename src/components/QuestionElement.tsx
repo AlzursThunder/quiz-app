@@ -13,11 +13,11 @@ interface QuestionElementProps {
 	id: string
 	setUserAnswers: React.Dispatch<React.SetStateAction<UserAnswer[]>>
 	setPoints: React.Dispatch<React.SetStateAction<Points>>
+	points: boolean | string
 }
 
 const QuestionElement: React.FC<QuestionElementProps> = (props: QuestionElementProps) => {
-	const { question, id, setUserAnswers, setPoints } = props
-	// console.log(id);
+	const { question, id, setUserAnswers, setPoints, points } = props
 	
 	const tmp = [question.correct_answer]
 	question.incorrect_answers.map((wrong) => tmp.push(wrong));
@@ -29,7 +29,7 @@ const QuestionElement: React.FC<QuestionElementProps> = (props: QuestionElementP
 			<div className={styles["question__answers-cont"]}>
 				{shuffledAnswers.map((value) => {
 					const id = nanoid()
-					return <Answer setPoints={setPoints} setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
+					return <Answer points={points} setPoints={setPoints} setUserAnswers={setUserAnswers} key={nanoid()} answer={decode(value)} id={id} />;})}
 				
 			</div>
 			<hr />
