@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
+
+// components
 import Button from "../components/Button";
 
+// styles
 import styles from "../styles/styles-pages/Home.module.css";
-import { AppContext } from "../App";
 
-import { getData, getRandQuestions } from "../utils/functions";
+// context & functions
+import { AppContext } from "../App";
+import { getRandQuestions } from "../utils/functions";
 
 const Home: React.FC = () => {
 	const { RandQuestionsParams } = useContext(AppContext);

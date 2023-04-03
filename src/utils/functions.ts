@@ -1,23 +1,19 @@
-import React from "react";
 import {
 	Api,
-	Category,
 	Changes,
-	Question,
 	RandOptionsParams,
 	RandQuestionsParams,
-	UserAnswer,
 	ValidInput,
 } from "./interfaces";
-import { decode } from "he";
 
-// gets data from API
+// get data from API
 function getData(params: Api) {
 	const { options } = params
 	const link = options
 		? `https://opentdb.com/api.php?amount=${options.questionNum}&category=${options.categoryId}&difficulty=${options.diffLevel}`
 		: "https://opentdb.com/api_category.php";
 	params.isLoading(true);
+
 	fetch(link)
 		.then((resp) => {
 			params.isError(false);
@@ -30,12 +26,11 @@ function getData(params: Api) {
 			params.isLoading(false);
 		})
 		.catch((error) => {
-			// console.log(error);
 			params.isError(true);
 		});
 }
 
-// retusrs number from range <min, max>
+// returns number from range <min, max>
 const randNum = (min: number, max: number) =>
 	Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -49,39 +44,6 @@ function handleChanges(params: Changes) {
 			[event.target.name]: event.target.value,
 		}));
 }
-
-// // adds style to answer choosen by player
-// // and removes this style from any other answer
-// function highlightChoosenAnswer(
-// 	event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-// 	id: string,
-// 	styles: CSSModuleClasses,
-// 	questions: Question[],
-// 	setUserAnswers?: React.Dispatch<React.SetStateAction<UserAnswer[]>>,
-// ) {
-// 	const target = event.target as HTMLDivElement;
-// 	const parent = target.parentElement;
-// 	const ancestor = parent?.parentElement
-// 	// let tmpAnswers: UserAnswer[] = []
-// 	if (ancestor) {
-// 		for (let child of parent.children) {
-// 			if (child.id === id) {
-// 				child.classList.add(styles["answer--highlighted"]);
-// 				setUserAnswers && setUserAnswers(prev => {
-// 					prev[parseInt(ancestor.id)] = {
-// 						answer: child.textContent ? child.textContent : "",
-// 						answerId: child.id,
-// 						isCorrect: child.textContent === decode(questions[parseInt(ancestor.id)].correct_answer)
-// 					};
-// 					return prev
-// 				})
-// 			} else {
-// 				child.classList.remove(styles['answer--highlighted'])
-// 			}
-// 		}		
-// 	}
-// 	// setUserAnswers && setUserAnswers(tmpAnswers)
-// }
 
 // sets options state to random values
 function getRandomOptions(params: RandOptionsParams) {
@@ -126,6 +88,7 @@ function shuffleArray<T>(array: T[]): T[] {
 	return shuffledArray;
 }
 
+// checks if user provided correct number of questions
 const outOfRange = (parameters: ValidInput) => {
 	const { userData, validQuestionsNumber } = parameters
 	const { min, max } = validQuestionsNumber
@@ -141,7 +104,6 @@ export {
 	getData,
 	randNum,
 	handleChanges,
-	// highlightChoosenAnswer,
 	getRandQuestions,
 	shuffleArray,
 	outOfRange

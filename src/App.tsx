@@ -1,12 +1,14 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+// pages & components
 import Home from "./pages/Home";
 import Options from "./pages/Options";
 import Arena from "./pages/Arena";
 import NoPage from "./pages/NoPage";
+import Menu from "./components/Menu";
 
-// interfaces
+// interfaces & functions
 import {
 	AppCont,
 	Category,
@@ -14,8 +16,8 @@ import {
 	Question,
 } from "./utils/interfaces";
 import { getData, } from "./utils/functions";
-import Menu from "./components/Menu";
 
+// main context used across main pages & components
 export const AppContext = createContext<AppCont>({
 	categories: [],
 	options: {
@@ -40,17 +42,9 @@ const App: React.FC = () => {
 		questionNum: "",
 	});
 
-	// const [randOpt, setRandOpt] = useState<OptionsParams>({
-	// 	categoryId: '',
-	// 	diffLevel: '',
-	// 	questionNum: ''
-	// })
-
 	const [questions, setQuestions] = useState<Question[]>([]);
 
 	const click = (opt: OptionsParams) => {
-		const link = `https://opentdb.com/api.php?amount=${opt.questionNum}&category=${opt.categoryId}&difficulty=${opt.diffLevel}`;
-
 		getData({
 			isError: setIsError,
 			isLoading: setIsLoading,

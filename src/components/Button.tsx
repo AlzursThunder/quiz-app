@@ -1,8 +1,8 @@
 import React, { MouseEventHandler } from 'react'
 import { Link } from "react-router-dom";
 
+// styles
 import styles from '../styles/styles-components/Button.module.css'
-import { getData } from '../utils/functions';
 
 interface Props {
 	direction: string;
@@ -13,6 +13,7 @@ interface Props {
 
 const Button: React.FC<Props> = ({ direction, buttonText, disabled, click }) => {
 	const where = `/${direction}`
+	
 	return (
 		<Link onClick={click} to={where}>
 			<button style={{

@@ -53,7 +53,6 @@ interface UserAnswer {
 	answer: string;
 	answerId: string
 	isCorrect: boolean
-	// parentId: string
 }
 
 interface RandOptionsParams {
@@ -73,7 +72,6 @@ interface ValidInput {
 		min: number;
 		max: number;
 	};
-	// isValid: boolean
 }
 
 interface Points {

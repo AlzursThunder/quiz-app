@@ -1,6 +1,9 @@
 import React from 'react'
+
+// components
 import Button from '../components/Button';
 
+// styles
 import styles from '../styles/styles-pages/NoPage.module.css'
 
 const NoPage: React.FC = () => {

@@ -1,21 +1,26 @@
-import React, { LegacyRef, createContext, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { nanoid } from 'nanoid';
+import { decode } from 'he';
+
+// functions & interfaces
 import { AppContext } from '../App';
+import { ArenaContext, Points, UserAnswer } from '../utils/interfaces';
+import { getRandQuestions } from '../utils/functions';
+
+// components
 import ErrorMsg from '../components/ErrorMsg';
 import Loading from '../components/Loading';
 import QuestionElement from '../components/QuestionElement';
-import { nanoid } from 'nanoid';
+import Warning from '../components/Warning';
+import Button from '../components/Button';
 
+// styles
 import styles from '../styles/styles-pages/Arena.module.css'
 import btnStyles from '../styles/styles-components/Button.module.css'
 import questElStyles from '../styles/styles-components/QuestionElement.module.css'
 import answerStyles from '../styles/styles-components/Answer.module.css'
 
-import { ArenaContext, Points, UserAnswer } from '../utils/interfaces';
-import { decode } from 'he';
-import Warning from '../components/Warning';
-import Button from '../components/Button';
-import { getRandQuestions } from '../utils/functions';
-
+// additional context used in Answer component
 export const ArenaProps = createContext<ArenaContext>({
 	isFinished: '',
 })
@@ -24,7 +29,6 @@ const Arena: React.FC = () => {
 	const { isError, isLoading, questions, RandQuestionsParams } = useContext(AppContext)
 	const [questionsHTML, setQuestionsHTML] = useState<JSX.Element[]>()
 	const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
-
 	const [points, setPoints] = useState<Points>({
 		answered: 0,
 		correct: 0,
@@ -32,6 +36,7 @@ const Arena: React.FC = () => {
 	})
 	const [isFinished, setIsFinished] = useState<boolean | string>('bruh')
 
+	// prevent accidental page reload
 	useEffect(() => {
 		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
 			// Cancel the event
@@ -61,28 +66,32 @@ const Arena: React.FC = () => {
 			let parentId = 0
 			return questions.map(question => {
 				const id = parentId++
-				return <QuestionElement
-					key={nanoid()}
-					points={isFinished}
-					setUserAnswers={setUserAnswers}
-					setPoints={setPoints}
-					question={question}
-					id={id + ''}
-				/>
+				return (
+					<QuestionElement
+						key={nanoid()}
+						setUserAnswers={setUserAnswers}
+						setPoints={setPoints}
+						question={question}
+						id={id + ''}
+					/>
+				)
 			})
 		})
 	}, [questions])
 
+	// styles answers after ending game, so user can se it's good/ bad answers
 	function stylingTime() {
 		const questionBlocks = document.getElementsByClassName(questElStyles['question__answers-cont'])
-		// console.log(questionBlocks);
+
 		for (let question of questionBlocks) {
 			if (question.parentElement) {
 				const ancestorId = parseInt(question.parentElement?.id)
+
 				for (let answer of question.children) {
 					if (answer.textContent === decode(questions[ancestorId].correct_answer)) {
 						answer.classList.add(answerStyles['answer--correct'])
 					}
+
 					if (answer.id === userAnswers[ancestorId].answerId) {
 						const badAnswer = userAnswers[ancestorId].isCorrect ? 'bruh' : answerStyles['answer--incorrect']
 						answer.classList.add(badAnswer)
@@ -100,22 +109,20 @@ const Arena: React.FC = () => {
 		return <Loading />
 	}
 
-	if (questions.length === 0) {
-		return <ErrorMsg />;
-	}
-
 	return (
 		<div className={styles.arena}>
 			<h1 className={styles["arena__welcome-text"]}>Good luck</h1>
+
 			<ArenaProps.Provider value={{
 				isFinished,
 			}}>
-				{
-					questionsHTML
-				}
+				{questionsHTML}
 			</ArenaProps.Provider>
+
 			{isFinished === true && <h2>{`${points.correct}/${points.overall} points`}</h2>}
+
 			{!isFinished && <Warning message='Please select all answer.' />}
+
 			<div>
 				{!(isFinished === true) ? (<button className={btnStyles['fake-btn']} style={{ border: 'none' }} onClick={() => {
 					setIsFinished(points.answered === points.overall)

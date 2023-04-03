@@ -1,25 +1,28 @@
 import React, { memo, useContext, useEffect, useState } from 'react'
+
+// components
 import Select from '../components/Select';
 import Button from '../components/Button';
-
-import styles from '../styles/styles-pages/Options.module.css'
-import { AppContext } from '../App';
-
 import Loading from '../components/Loading';
 import ErrorMsg from '../components/ErrorMsg';
 
+// styles
+import styles from '../styles/styles-pages/Options.module.css'
+
+// context & functions
+import { AppContext } from '../App';
+import { handleChanges, outOfRange } from '../utils/functions';
+
+// photos for radio buttons
 import mixedImg from '../assets/mixed.png'
 import easyImg from '../assets/easy.png'
 import mediumImg from '../assets/medium.png'
 import hardImg from '../assets/hard.png'
-import { handleChanges, outOfRange } from '../utils/functions';
-import Warning from '../components/Warning';
-// import { OptionsParams } from '../utils/interfaces';
 
 const Options: React.FC = () => {
 	const { isError, isLoading, setOptions, options, click } = useContext(AppContext)
 	const [isInvalid, setIsInvalid] = useState(() => false)
-	
+
 	useEffect(() => {
 		setIsInvalid(outOfRange({
 			userData: options.questionNum,
@@ -34,6 +37,7 @@ const Options: React.FC = () => {
 	if (isLoading) {
 		return <Loading />
 	}
+
 	return (
 		<div className={styles.options}>
 			<h1>Options</h1>
@@ -45,7 +49,7 @@ const Options: React.FC = () => {
 							Questions number (min - 5, max - 10)
 							<input
 								style={{
-									border: isInvalid ? '2px solid red' : undefined 
+									border: isInvalid ? '2px solid red' : undefined
 								}}
 								onChange={(event) =>
 									handleChanges({ event, setState: setOptions })
@@ -63,7 +67,7 @@ const Options: React.FC = () => {
 						<Select />
 					</div>
 				</div>
-				{/* difficulty */}
+				{/* difficulty levels */}
 				<div className={styles["options__form__radios-cont"]}>
 					<p className="form-label">Difficulty levels</p>
 					<div className="mb-3">

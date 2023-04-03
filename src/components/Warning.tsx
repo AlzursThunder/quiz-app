@@ -1,4 +1,6 @@
 import React from 'react'
+
+// styles
 import styles from '../styles/styles-components/Warning.module.css'
 
 interface WarningProps {
