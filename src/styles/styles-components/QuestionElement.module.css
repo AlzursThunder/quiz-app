@@ -9,9 +9,20 @@
 .question__answers-cont {
 	display: flex;
 	justify-content: space-evenly;
+	width: 80%;
 }
 
 .question__btn-cont {
 	display: flex;
 	justify-content: center;
+}
+
+@media screen and (max-width: 650px) {
+	.question {
+		width: 110%;
+	}
+
+	.question__answers-cont {
+		width: 100%;
+	}
 }

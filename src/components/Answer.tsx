@@ -70,7 +70,11 @@ const Answer: React.FC<AnswerProps> = (props: AnswerProps) => {
 			}}
 			className={styles.answer}
 		>
-			{answer}
+			<p style={{
+				margin: '0 auto',
+			}}>
+				{answer}
+			</p>
 		</button>
 	);
 };

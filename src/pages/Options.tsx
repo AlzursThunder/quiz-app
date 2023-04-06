@@ -46,7 +46,7 @@ const Options: React.FC = () => {
 					{/* questions number */}
 					<div className="mb-3">
 						<label className="form-label">
-							Questions number (min - 5, max - 10)
+							Questions number <b>(min - 5, max - 10)</b>
 							<input
 								style={{
 									border: isInvalid ? '2px solid red' : undefined
@@ -68,67 +68,73 @@ const Options: React.FC = () => {
 					</div>
 				</div>
 				{/* difficulty levels */}
-				<div className={styles["options__form__radios-cont"]}>
+				<div className={styles["options__form__radio"]}>
 					<p className="form-label">Difficulty levels</p>
-					<div className="mb-3">
-						<label className={styles["options__form__radios-cont__radio"]}>
-							<input
-								type="radio"
-								name="diffLevel"
-								value=""
-								className={`form-check-input`}
-								onChange={(event) =>
-									handleChanges({ event, setState: setOptions })
-								}
-								checked={options.diffLevel === ""}
-							/>
-							<img src={mixedImg} alt="" />
-						</label>
-					</div>
-					<div className="mb-3">
-						<label className={styles["options__form__radios-cont__radio"]}>
-							<input
-								type="radio"
-								name="diffLevel"
-								value="easy"
-								className={`form-check-input`}
-								onChange={(event) =>
-									handleChanges({ event, setState: setOptions })
-								}
-								checked={options.diffLevel === "easy"}
-							/>
-							<img src={easyImg} alt="" />
-						</label>
-					</div>
-					<div className="mb-3">
-						<label className={styles["options__form__radios-cont__radio"]}>
-							<input
-								type="radio"
-								name="diffLevel"
-								value="medium"
-								className={`form-check-input`}
-								onChange={(event) =>
-									handleChanges({ event, setState: setOptions })
-								}
-								checked={options.diffLevel === "medium"}
-							/>
-							<img src={mediumImg} alt="" />
-						</label>
-					</div>
-					<div className="mb-3">
-						<label className={styles["options__form__radios-cont__radio"]}>
-							<input
-								type="radio"
-								name="diffLevel"
-								value="hard"
-								className={`form-check-input`}
-								onChange={(event) =>
-									handleChanges({ event, setState: setOptions })
-								}
-								checked={options.diffLevel === "hard"}
-							/>
-							<img src={hardImg} alt="" />
-						</label>
+					<div className={styles['options__form__radio__main-container']}>
+						<div className={styles['options__form__radio__main-container-helper']}>
+						<div className="mb-3">
+							<label className={styles["options__form__radios-cont__radio"]}>
+								<input
+									type="radio"
+									name="diffLevel"
+									value=""
+									className={`form-check-input`}
+									onChange={(event) =>
+										handleChanges({ event, setState: setOptions })
+									}
+									checked={options.diffLevel === ""}
+									/>
+								<img src={mixedImg} alt="" />
+							</label>
+						</div>
+						<div className="mb-3">
+							<label className={styles["options__form__radios-cont__radio"]}>
+								<input
+									type="radio"
+									name="diffLevel"
+									value="easy"
+									className={`form-check-input`}
+									onChange={(event) =>
+										handleChanges({ event, setState: setOptions })
+									}
+									checked={options.diffLevel === "easy"}
+									/>
+								<img src={easyImg} alt="" />
+							</label>
+						</div>
+									</div>
+									<div className={styles['options__form__radio__main-container-helper']}>
+						<div className="mb-3">
+							<label className={styles["options__form__radios-cont__radio"]}>
+								<input
+									type="radio"
+									name="diffLevel"
+									value="medium"
+									className={`form-check-input`}
+									onChange={(event) =>
+										handleChanges({ event, setState: setOptions })
+									}
+									checked={options.diffLevel === "medium"}
+									/>
+								<img src={mediumImg} alt="" />
+							</label>
+						</div>
+						<div className="mb-3">
+							<label className={styles["options__form__radios-cont__radio"]}>
+								<input
+									type="radio"
+									name="diffLevel"
+									value="hard"
+									className={`form-check-input`}
+									onChange={(event) =>
+										handleChanges({ event, setState: setOptions })
+									}
+									checked={options.diffLevel === "hard"}
+									/>
+								<img src={hardImg} alt="" />
+							</label>
+						</div>
+									</div>
 					</div>
 				</div>
 			</div>

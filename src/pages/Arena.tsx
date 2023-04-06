@@ -109,6 +109,9 @@ const Arena: React.FC = () => {
 		return <Loading />
 	}
 
+	if (questions.length === 0) {
+		return <ErrorMsg />
+	}
 	return (
 		<div className={styles.arena}>
 			<h1 className={styles["arena__welcome-text"]}>Good luck</h1>

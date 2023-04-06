@@ -5,13 +5,13 @@ import { Link, Outlet } from 'react-router-dom'
 import styles from '../styles/styles-components/Menu.module.css'
 
 const Menu = () => {
-	
+
 	return (
 		<>
 			<nav className={styles.nav}>
 				<div className={styles['nav-center']}>
 					<div className={styles["nav-header"]}>
-						<img src="/favicon.ico" className="logo" alt="logo" />
+						{/* <img src="/favicon.ico" className="logo" alt="logo" /> */}
 						<button className={styles["nav-toggle"]} onClick={() => {
 							document.getElementsByClassName(styles['links'])[0].classList.toggle(styles['show-links'])
 						}}>
