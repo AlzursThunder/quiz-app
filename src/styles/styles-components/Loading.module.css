@@ -4,6 +4,7 @@
 	justify-content: center;
 	text-align: center;
 	padding-top: 2em;
+	margin: auto 0.5em;
 }
 
 .big-text {
@@ -12,4 +13,13 @@
 
 .small-text {
 	font-size: 4rem
+}
+
+@media screen and (max-width: 700px) {
+	.big-text {
+		font-size: 4rem;
+	}
+	.small-text {
+		font-size: calc(8rem/3rem);
+	}
 }

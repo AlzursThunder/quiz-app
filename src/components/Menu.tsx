@@ -29,8 +29,8 @@ const Menu = () => {
 
 					<ul className={styles["social-icons"]}>
 						<li>
-							<a href="https://github.com/AlzursThunder" target='_blank'>
-								<i className="fab fa-github"></i>
+							<a href="https://github.com/AlzursThunder" target='_blank' rel='external'>
+								<img height={'20px'} src='/github-mark.svg' alt='my GitHub' />
 							</a>
 						</li>
 					</ul>

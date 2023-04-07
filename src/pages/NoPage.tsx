@@ -10,10 +10,10 @@ const NoPage: React.FC = () => {
 	return (
 		<div className={styles.dark}>
 			<h1 className={styles['dark__message']}>
-				You've reached the world's edge. None but devils play past here...
-				<br /> Turn back
+				You've reached the world's edge. None but devils play past here.
+				<br /> Turn back traveler
 			</h1>
-			<Button buttonText="Let's go home" direction="" />
+			<Button buttonText="home" direction="" />
 		</div>
 	);
 };

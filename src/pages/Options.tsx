@@ -1,5 +1,5 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
-
+import React, { memo, useContext, useEffect, useRef, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 // components
 import Select from '../components/Select';
 import Button from '../components/Button';
@@ -72,69 +72,69 @@ const Options: React.FC = () => {
 					<p className="form-label">Difficulty levels</p>
 					<div className={styles['options__form__radio__main-container']}>
 						<div className={styles['options__form__radio__main-container-helper']}>
-						<div className="mb-3">
-							<label className={styles["options__form__radios-cont__radio"]}>
-								<input
-									type="radio"
-									name="diffLevel"
-									value=""
-									className={`form-check-input`}
-									onChange={(event) =>
-										handleChanges({ event, setState: setOptions })
-									}
-									checked={options.diffLevel === ""}
+							<div className="mb-3">
+								<label className={styles["options__form__radios-cont__radio"]}>
+									<input
+										type="radio"
+										name="diffLevel"
+										value=""
+										className={`form-check-input`}
+										onChange={(event) =>
+											handleChanges({ event, setState: setOptions })
+										}
+										checked={options.diffLevel === ""}
 									/>
-								<img src={mixedImg} alt="" />
-							</label>
-						</div>
-						<div className="mb-3">
-							<label className={styles["options__form__radios-cont__radio"]}>
-								<input
-									type="radio"
-									name="diffLevel"
-									value="easy"
-									className={`form-check-input`}
-									onChange={(event) =>
-										handleChanges({ event, setState: setOptions })
-									}
-									checked={options.diffLevel === "easy"}
+									<img src={mixedImg} alt="" />
+								</label>
+							</div>
+							<div className="mb-3">
+								<label className={styles["options__form__radios-cont__radio"]}>
+									<input
+										type="radio"
+										name="diffLevel"
+										value="easy"
+										className={`form-check-input`}
+										onChange={(event) =>
+											handleChanges({ event, setState: setOptions })
+										}
+										checked={options.diffLevel === "easy"}
 									/>
-								<img src={easyImg} alt="" />
-							</label>
+									<img src={easyImg} alt="" />
+								</label>
+							</div>
 						</div>
-									</div>
-									<div className={styles['options__form__radio__main-container-helper']}>
-						<div className="mb-3">
-							<label className={styles["options__form__radios-cont__radio"]}>
-								<input
-									type="radio"
-									name="diffLevel"
-									value="medium"
-									className={`form-check-input`}
-									onChange={(event) =>
-										handleChanges({ event, setState: setOptions })
-									}
-									checked={options.diffLevel === "medium"}
+						<div className={styles['options__form__radio__main-container-helper']}>
+							<div className="mb-3">
+								<label className={styles["options__form__radios-cont__radio"]}>
+									<input
+										type="radio"
+										name="diffLevel"
+										value="medium"
+										className={`form-check-input`}
+										onChange={(event) =>
+											handleChanges({ event, setState: setOptions })
+										}
+										checked={options.diffLevel === "medium"}
 									/>
-								<img src={mediumImg} alt="" />
-							</label>
-						</div>
-						<div className="mb-3">
-							<label className={styles["options__form__radios-cont__radio"]}>
-								<input
-									type="radio"
-									name="diffLevel"
-									value="hard"
-									className={`form-check-input`}
-									onChange={(event) =>
-										handleChanges({ event, setState: setOptions })
-									}
-									checked={options.diffLevel === "hard"}
+									<img src={mediumImg} alt="" />
+								</label>
+							</div>
+							<div className="mb-3">
+								<label className={styles["options__form__radios-cont__radio"]}>
+									<input
+										type="radio"
+										name="diffLevel"
+										value="hard"
+										className={`form-check-input`}
+										onChange={(event) =>
+											handleChanges({ event, setState: setOptions })
+										}
+										checked={options.diffLevel === "hard"}
 									/>
-								<img src={hardImg} alt="" />
-							</label>
+									<img src={hardImg} alt="" />
+								</label>
+							</div>
 						</div>
-									</div>
 					</div>
 				</div>
 			</div>

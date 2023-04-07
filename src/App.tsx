@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { createContext, useEffect, useState, } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 // pages & components
 import Home from "./pages/Home";
@@ -53,7 +53,7 @@ const App: React.FC = () => {
 			text: "results",
 		});
 	};
-
+	const location = useLocation()
 	useEffect(() => {
 		getData({
 			setState: setCategories,
@@ -62,6 +62,22 @@ const App: React.FC = () => {
 			isError: setIsError,
 		});
 	}, []);
+
+	useEffect(() => {
+		const body = document.querySelector('body')
+		const path = location.pathname
+
+		if (body) {
+			if (path === '/' || path === '/options' || path === '/arena') {
+				body.style.backgroundColor = "papayawhip";
+			} else {
+				body.style.backgroundColor = "black";
+			}
+			if (path === '/arena' && questions.length === 0) {
+				body.style.backgroundColor = "black";
+			}
+		}		
+	}, [location, questions])
 
 	return (
 		<AppContext.Provider
@@ -94,7 +110,7 @@ const App: React.FC = () => {
 				},
 			}}
 		>
-			<BrowserRouter>
+			{/* <BrowserRouter> */}
 				<Routes>
 					<Route path="/" element={<Menu />}>
 						<Route index element={<Home />} />
@@ -103,9 +119,17 @@ const App: React.FC = () => {
 						<Route path="*" element={<NoPage />} />
 					</Route>
 				</Routes>
-			</BrowserRouter>
+			{/* </BrowserRouter> */}
 		</AppContext.Provider>
 	);
 };
 
-export default App;
+function AppWrapper() {
+	return (
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	)
+}
+
+export default AppWrapper;
